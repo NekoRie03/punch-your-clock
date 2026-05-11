@@ -6,7 +6,7 @@
  
 I built this because I kept lying to myself about what time I "arrived" at work. Now I have a whole app to lie to instead. At least it saves the lies to `localStorage`.
  
-This is a **personal-use, single-file HTML time tracker** — no backend, no accounts, no cloud, no ₱499/month CEO tax. Just you, your browser, and your dignity (optional). **Add it to your phone's home screen** — it works offline and saves everything to browser storage. No internet? No problem.---
+This is a **personal-use, single-file HTML time tracker** — no backend, no accounts, no cloud, no ₱499/month CEO tax. Just you, your browser, and your dignity (optional). **Add it to your desktop or phone's home screen** — it works offline and saves everything to browser storage. No internet? No problem.---
  
 ## ✨ Features
  
