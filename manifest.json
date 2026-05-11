@@ -2,7 +2,7 @@
   "name": "Punch Your Clock",
   "short_name": "PunchClock",
   "description": "Personal time tracker with XP, achievements, and Whack-a-Clock.",
-  "start_url": "./punch-your-clock.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#080709",
   "theme_color": "#f5c842",
