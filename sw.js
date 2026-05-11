@@ -1,6 +1,6 @@
 const CACHE = 'pyc-v1';
 const ASSETS = [
-  './punch-your-clock.html',
+  './index.html',
   './manifest.json',
   'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap'
 ];
