@@ -6,6 +6,12 @@
 
 ---
 
+## 🌐 Live Demo
+
+Smash the clock for real at: **[punch-your-clock.vercel.app](https://nekorie03.github.io/punch-your-clock/)**
+
+---
+
 ## 🚀 Why This Exists
 
 Because normal timesheets are boring. And because if you really want to edit that time log from last Tuesday, you should have to prove your reflexes first. This app turns the dull chore of daily time recording into a street fight where the clock hits back.
