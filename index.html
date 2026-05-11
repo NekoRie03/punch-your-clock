@@ -13,185 +13,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:       #080709;
-  --surface:  #111013;
-  --card:     #18161a;
-  --border:   #2e2833;
-  --accent:   #f5c842;
-  --punch:    #ff4f3b;
-  --green:    #2dbd6e;
-  --blue:     #4fa3f7;
-  --muted:    #7a6e85;
-  --text:     #ede8f5;
-  --dim:      #ccc4d8;
-  --xp-bar:   #f5c842;
-  --rank-bg:  #1e1a24;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);font-family:'DM Mono',monospace;color:var(--text);min-height:100vh;padding:1.5rem 1rem;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 40% at 50% 0%,#2a1a3a60,transparent 70%);pointer-events:none;z-index:0}
-.container{max-width:1400px;margin:0 auto;position:relative;z-index:1}
-
-/* HEADER */
-.header{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem}
-.header h1{font-family:'Bebas Neue',cursive;font-size:clamp(2rem,6vw,3.6rem);color:var(--accent);letter-spacing:.04em;text-shadow:0 0 40px #f5c84255,3px 3px 0 #7a5f00;line-height:1}
-.name-tag{font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .9rem;border-radius:999px;color:var(--accent);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap}
-.name-tag:hover{border-color:var(--accent);color:#fff}
-
-/* RANK / XP */
-.rank-panel{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
-.rank-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--rank-bg);border:1px solid var(--border);padding:.35rem 1rem;border-radius:999px;font-size:.8rem}
-.rank-icon{font-size:1.1rem}
-.rank-label{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em}
-.rank-name{color:var(--accent);font-family:'Bebas Neue',cursive;font-size:1.1rem;letter-spacing:.05em}
-.xp-wrap{flex:1;min-width:160px;max-width:320px}
-.xp-label{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em}
-.xp-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-.xp-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
-.streak-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--card);border:1px solid var(--border);padding:.3rem .9rem;border-radius:999px;font-size:.82rem;color:var(--muted);transition:border-color .3s,color .3s,box-shadow .3s}
-.streak-badge.hot{border-color:var(--punch);color:var(--punch);box-shadow:0 0 12px #ff4f3b30}
-.streak-num{font-family:'Bebas Neue',cursive;font-size:1.2rem}
-.tagline{font-size:.82rem;color:var(--muted);border-left:3px solid var(--accent);padding-left:.8rem;margin-bottom:1.2rem;font-style:italic}
-
-/* PUNCH CARD */
-.punch-card{background:var(--card);border:1.5px solid var(--border);border-radius:1.2rem;padding:1.2rem 1.5rem;margin-bottom:1rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;position:relative;overflow:hidden}
-.punch-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 100% 50%,#f5c84208,transparent);pointer-events:none}
-.punch-card-left{display:flex;flex-direction:column;gap:.3rem}
-.date-clock-row{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
-.today-date{font-family:'Bebas Neue',cursive;font-size:1.1rem;color:var(--dim);letter-spacing:.05em}
-.live-clock{font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--accent);letter-spacing:.06em;font-variant-numeric:tabular-nums;min-width:8ch;line-height:1}
-.live-clock .sec{font-size:1rem;color:var(--muted)}
-.today-status{font-size:.75rem;color:var(--muted);min-height:1.1em}
-.grace-countdown{font-size:.7rem;color:var(--green);min-height:1em}
-.kb-hints{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.2rem}
-.kb-hint{font-size:.65rem;color:var(--muted);display:flex;align-items:center;gap:.25rem}
-.kb-hint kbd{background:#2e2833;border:1px solid #4a3d55;border-radius:4px;padding:.1rem .35rem;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--accent)}
-.punch-btns{display:flex;gap:.6rem;flex-wrap:wrap}
-.punch-btn{border:none;padding:.6rem 1.2rem;border-radius:999px;font-family:'DM Mono',monospace;font-weight:500;font-size:.78rem;cursor:pointer;color:#fff;transition:transform .08s,filter .1s,box-shadow .15s;display:flex;align-items:center;gap:.4rem;letter-spacing:.02em}
-.punch-btn.in {background:#1a3d28;border:1px solid #2dbd6e50}
-.punch-btn.out{background:#3d1a1a;border:1px solid #ff4f3b50}
-.punch-btn:hover{filter:brightness(1.3);transform:scale(.97)}
-.punch-btn:active{transform:scale(.88)}
-.punch-btn.flash{animation:btnFlash .45s ease}
-@keyframes btnFlash{0%,100%{box-shadow:none}50%{box-shadow:0 0 20px #f5c84260}}
-
-/* ACHIEVEMENTS STRIP */
-.achievements-strip{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.ach-chip{display:inline-flex;align-items:center;gap:.35rem;background:var(--card);border:1px solid var(--border);padding:.25rem .75rem;border-radius:999px;font-size:.68rem;color:var(--muted);cursor:default;transition:border-color .2s,color .2s;white-space:nowrap}
-.ach-chip.unlocked{border-color:#f5c84250;color:var(--accent);background:#1e1a10}
-.ach-chip.unlocked .ach-icon{filter:none}
-.ach-icon{font-size:.9rem;filter:grayscale(1)opacity(.4);transition:filter .3s}
-.ach-chip.unlocked .ach-icon{filter:none}
-
-/* PUNCH ALERT */
-.punch-alert{background:#2d1212;border:1px solid #7a2020;border-radius:.8rem;padding:.6rem 1rem;font-size:.75rem;color:#e07070;margin-bottom:.8rem;display:none;animation:fadeIn .2s}
-.punch-alert.visible{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-
-/* SETTINGS */
-.settings-bar{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:.9rem 1.4rem;margin-bottom:1rem;display:flex;flex-wrap:wrap;gap:1.2rem;align-items:flex-end}
-.setting-group{display:flex;flex-direction:column;gap:.2rem}
-.setting-group label{font-size:.65rem;color:var(--accent);font-weight:500;letter-spacing:.08em;text-transform:uppercase}
-.setting-group input{background:var(--card);border:1px solid var(--border);padding:.4rem .8rem;border-radius:999px;color:var(--text);font-family:'DM Mono',monospace;font-size:.82rem;transition:border-color .2s;width:auto}
-.setting-group input:focus{outline:none;border-color:var(--accent)}
-
-/* TOOLBAR */
-.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:1.2rem}
-.month-picker-wrap{display:flex;align-items:center;gap:.6rem;background:var(--card);border:1px solid var(--border);padding:.4rem 1rem;border-radius:999px}
-.month-picker-wrap label{font-size:.68rem;color:var(--muted);letter-spacing:.1em}
-#monthPicker{background:transparent;border:none;color:var(--accent);font-family:'DM Mono',monospace;font-size:.82rem;cursor:pointer}
-#monthPicker:focus{outline:none}
-.action-btns{display:flex;gap:.4rem;flex-wrap:wrap}
-.btn{background:var(--card);border:1px solid var(--border);padding:.42rem 1rem;border-radius:999px;font-family:'DM Mono',monospace;font-weight:500;font-size:.72rem;cursor:pointer;color:var(--text);transition:border-color .15s,filter .15s;display:inline-flex;align-items:center;gap:.3rem;letter-spacing:.01em}
-.btn:hover{filter:brightness(1.2);border-color:var(--accent)}
-.btn.danger{border-color:#7a2020;color:#e07070}
-.btn.danger:hover{border-color:var(--punch)}
-
-/* TABLE */
-.table-wrap{overflow-x:auto;border-radius:1rem;border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:.76rem}
-thead th{background:var(--surface);color:var(--accent);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.65rem .4rem;border-bottom:1px solid var(--border);white-space:nowrap}
-tbody tr{border-bottom:1px solid #1e1a24;transition:background .15s}
-tbody tr:hover td{background:#1e1a24!important}
-tbody td{background:var(--card);padding:.4rem .35rem;text-align:center;vertical-align:middle}
-tbody tr.today-row td{background:#1a2218}
-tbody tr.today-row{border-left:3px solid var(--accent)}
-tbody tr.warn-row td{background:#1f1313}
-.day-num{font-weight:500;color:var(--accent);font-family:'Bebas Neue',cursive;font-size:.95rem}
-.day-star{color:var(--punch);font-size:.75em}
-input.time-input,select.status-select,input.lunch-input{background:#0c0a0e;border:1px solid var(--border);border-radius:999px;color:var(--text);padding:.28rem .45rem;font-family:'DM Mono',monospace;font-size:.73rem;width:88px;text-align:center;transition:border-color .15s}
-select.status-select{width:100px}
-input.lunch-input{width:58px}
-input.notes-input{background:#0c0a0e;border:1px solid var(--border);border-radius:8px;color:var(--text);padding:.28rem .5rem;font-family:'DM Mono',monospace;font-size:.7rem;width:116px;transition:border-color .15s}
-input:focus,select:focus{outline:none;border-color:var(--accent)}
-input:disabled,select:disabled{background:#14111a;color:var(--muted);cursor:not-allowed;opacity:.55}
-.time-input.incomplete{border-color:#7a2020!important;background:#1a0d0d!important}
-.total-cell{font-weight:500;color:var(--text)}
-.ot-cell{font-weight:500}
-.ot-pos{color:var(--accent)}
-.ot-zero{color:var(--muted)}
-.row-grace{font-size:.58rem;color:var(--green);display:block;margin-top:2px;font-variant-numeric:tabular-nums}
-.dispute-btn{background:transparent;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:.7rem;padding:.22rem .5rem;cursor:pointer;transition:border-color .15s,color .15s,transform .1s}
-.dispute-btn:hover{border-color:var(--punch);color:var(--punch);transform:scale(1.1)}
-.lock-icon{font-size:.7rem}
-
-/* SUMMARY */
-.ot-summary{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
-.ot-card{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:.9rem 1.1rem;text-align:center;transition:border-color .3s}
-.ot-card:hover{border-color:var(--border)}
-.ot-card h3{font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem}
-.ot-card .val{font-family:'Bebas Neue',cursive;font-size:1.7rem;color:var(--accent);letter-spacing:.03em}
-.month-summary{margin-top:.8rem;background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:.75rem 1.2rem;display:flex;gap:1.5rem;flex-wrap:wrap;font-size:.78rem}
-.month-summary span{color:var(--muted)}
-.month-summary strong{color:var(--text);margin-left:.35rem}
-.footer-note{margin-top:1rem;font-size:.65rem;color:var(--muted);text-align:center;line-height:1.9}
-
-/* XP POPUP */
-.xp-popup{position:fixed;pointer-events:none;font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--accent);text-shadow:0 0 10px #f5c84250;z-index:9999;animation:xpFloat 1.2s ease forwards}
-@keyframes xpFloat{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1;transform:translateY(-8px) scale(1.05)}80%{opacity:1;transform:translateY(-30px) scale(1)}100%{opacity:0;transform:translateY(-50px) scale(.9)}}
-
-/* TOAST */
-.toast-container{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:.5rem;z-index:9999;pointer-events:none}
-.toast{background:var(--card);border:1px solid var(--border);color:var(--text);padding:.55rem 1.1rem;border-radius:999px;font-size:.76rem;font-family:'DM Mono',monospace;animation:toastIn .2s ease,toastOut .4s 2.6s ease forwards}
-@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes toastOut{to{opacity:0;transform:translateY(-8px)}}
-
-/* MODAL / GAME */
-.modal-overlay{position:fixed;inset:0;background:#00000090;display:flex;align-items:center;justify-content:center;z-index:2000;backdrop-filter:blur(6px)}
-.modal-card{background:var(--card);border:2px solid var(--accent);border-radius:1.5rem;padding:2rem;text-align:center;width:min(92vw,440px);box-shadow:0 0 60px #f5c84230}
-.modal-card h2{font-family:'Bebas Neue',cursive;font-size:1.8rem;color:var(--accent);margin-bottom:.25rem;letter-spacing:.04em}
-.modal-card p{font-size:.78rem;color:var(--muted);margin-bottom:1.2rem}
-.game-meta{display:flex;justify-content:space-between;margin-bottom:.8rem;font-size:.82rem}
-.game-meta .score{color:var(--green);font-weight:500}
-.game-meta .round{color:var(--muted)}
-.progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.2rem;overflow:hidden}
-.progress-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .25s}
-.whack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.2rem}
-.mole-cell{background:#1e1824;border:2px solid var(--border);border-radius:50%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:1.7rem;cursor:pointer;transition:background .12s,transform .1s,border-color .12s;user-select:none}
-.mole-cell.active{background:#3a2a08;border-color:var(--accent);animation:molePulse .5s ease-in-out infinite alternate}
-.mole-cell.hit{background:#1a3d1f;border-color:var(--green);animation:hitFlash .3s}
-@keyframes molePulse{from{transform:scale(1)}to{transform:scale(1.1)}}
-@keyframes hitFlash{0%{transform:scale(1.25)}100%{transform:scale(1)}}
-
-/* COMBO indicator */
-.combo-display{font-family:'Bebas Neue',cursive;font-size:1.1rem;color:var(--punch);min-height:1.4rem;margin-bottom:.4rem;transition:opacity .3s}
-
-/* PWA install banner */
-.install-banner{display:none;align-items:center;gap:.8rem;background:var(--card);border:1px solid var(--accent);border-radius:1rem;padding:.7rem 1.1rem;margin-bottom:1rem;font-size:.75rem;animation:fadeIn .3s ease}
-.install-banner.show{display:flex}
-.install-banner-text{flex:1;color:var(--dim)}
-.install-banner-text strong{color:var(--accent);display:block;margin-bottom:.1rem}
-.install-btn{background:var(--accent);color:#080709;border:none;padding:.4rem .9rem;border-radius:999px;font-family:'DM Mono',monospace;font-weight:500;font-size:.72rem;cursor:pointer;white-space:nowrap;transition:filter .15s}
-.install-btn:hover{filter:brightness(1.1)}
-.install-dismiss{background:transparent;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:.1rem .3rem;line-height:1}
-.install-dismiss:hover{color:var(--text)}
-/* safe area for notch phones */
-body{padding-bottom:max(1.5rem, env(safe-area-inset-bottom))}
-@media print{.toolbar,.settings-bar,.punch-card,.footer-note,.btn,.modal-overlay,.toast-container,.punch-alert,.achievements-strip,.rank-panel,.install-banner{display:none!important}body,.container{background:white;color:black}input,select{border:none;background:white;color:black}}
-@media(max-width:600px){.header h1{font-size:2rem}.ot-card .val{font-size:1.3rem}.live-clock{font-size:1.4rem}.punch-btn{font-size:.72rem;padding:.5rem .85rem}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
@@ -213,7 +35,7 @@ body{padding-bottom:max(1.5rem, env(safe-area-inset-bottom))}
     <button class="install-dismiss" id="installDismiss" title="Dismiss">✕</button>
   </div>
 
-  <!-- RANK + XP + STREAK -->
+  <!-- RANK + XP + STREAK + COINS -->
   <div class="rank-panel">
     <div class="rank-badge">
       <span class="rank-icon" id="rankIcon">🥉</span>
@@ -227,6 +49,9 @@ body{padding-bottom:max(1.5rem, env(safe-area-inset-bottom))}
       <div class="xp-track"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
     </div>
     <span class="streak-badge" id="streakBadge">🔥 <span class="streak-num" id="streakNum">0</span> day streak</span>
+    <span class="streak-badge" id="coinBadge" style="border-color:#f5c84240;color:var(--accent)" title="Counter Clocks – spend 1 to unlock any day without fighting">
+      🪙 <span id="coinCount">0</span>
+    </span>
   </div>
 
   <!-- ACHIEVEMENTS -->
@@ -258,20 +83,35 @@ body{padding-bottom:max(1.5rem, env(safe-area-inset-bottom))}
     </div>
   </div>
 
-  <!-- SETTINGS -->
+  <!-- SETTINGS (incl. difficulty) -->
   <div class="settings-bar">
     <div class="setting-group"><label>Start</label><input type="time" id="officialStart" value="08:00"></div>
     <div class="setting-group"><label>End</label><input type="time" id="officialEnd" value="17:00"></div>
     <div class="setting-group"><label>Lunch (min)</label><input type="number" id="lunchMinutes" value="60" step="10" min="0" style="width:76px"></div>
     <div class="setting-group"><label>Hourly Rate (₱)</label><input type="number" id="hourlyRate" value="0" step="10" min="0" style="width:88px" placeholder="0"></div>
+    <div class="setting-group">
+      <label>🥊 Whack Difficulty</label>
+      <div style="display:flex;align-items:center;gap:.4rem">
+        <select id="whackDifficulty">
+          <option value="easy">Easy (mock)</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard</option>
+          <option value="nightmare">Nightmare</option>
+        </select>
+        <span id="diffSummary" style="font-size:.65rem;color:var(--muted)">5 hits, 0.8s</span>
+      </div>
+    </div>
     <button class="btn" id="applySettingsBtn">✅ Apply</button>
   </div>
 
-  <!-- TOOLBAR -->
+  <!-- TOOLBAR with Monthly Challenge -->
   <div class="toolbar">
-    <div class="month-picker-wrap">
-      <label>MONTH</label>
-      <input type="month" id="monthPicker">
+    <div class="toolbar-group">
+      <div class="month-picker-wrap">
+        <label>MONTH</label>
+        <input type="month" id="monthPicker">
+      </div>
+      <button class="btn special" id="monthlyChallengeBtn" title="Win 20-round game → 35 Counter Clocks (once per month)">🏆 Monthly Challenge</button>
     </div>
     <div class="action-btns">
       <button class="btn" id="exportBtn">💾 Export</button>
@@ -284,6 +124,7 @@ body{padding-bottom:max(1.5rem, env(safe-area-inset-bottom))}
   </div>
 
   <div id="dtrTableContainer" class="table-wrap"></div>
+  <div id="dtrCardsContainer" class="cards-view"></div>
 
   <div class="ot-summary">
     <div class="ot-card"><h3>Regular OT</h3><div class="val" id="regularOT">—</div></div>
@@ -302,654 +143,36 @@ body{padding-bottom:max(1.5rem, env(safe-area-inset-bottom))}
 
   <div class="footer-note">
     🔒 Days locked by default · Win Whack-a-Clock to unlock (5-min grace) · ⌨️ Keys 1–4 to punch<br>
-    ⚠️ Red cells = incomplete pair · ⏱️ Grace timer per row · 🏆 Earn XP & achievements!
+    ⚠️ Red cells = incomplete pair · ⏱️ Grace timer per row · 🏆 Earn XP & achievements!<br>
+    🪙 Counter Clocks: spend 1 to unlock any day without fighting | 🏆 Monthly Challenge = 35 coins<br>
+    💡 Easy mode = mocking easy · Hard/Nightmare = fewer coins after 3 straight losses<br>
+    <span style="margin-top:0.4rem;display:block;">Extended by <a href="https://github.com/NekoRie03" target="_blank" rel="noopener" style="color:var(--accent);">NekoRie03</a></span>
   </div>
 </div>
+
+<!-- COIN CONFIRMATION MODAL -->
+<div class="modal-overlay" id="coinConfirmOverlay" style="display:none">
+  <div class="coin-confirm-card">
+    <h3>💳 Spend Counter Clock?</h3>
+    <p id="coinConfirmMsg">Unlock Day 15 for 1 🪙?</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1rem">
+      <span style="font-size:1.5rem">🪙</span>
+      <span style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--accent)" id="coinConfirmBalance">0</span>
+      <span style="font-size:.7rem;color:var(--muted)">available</span>
+    </div>
+    <label class="checkbox-label">
+      <input type="checkbox" id="coinConfirmSkip">
+      Don't ask again (auto‑spend)
+    </label>
+    <div class="coin-confirm-btns">
+      <button class="btn" id="coinConfirmYes">🪙 Spend</button>
+      <button class="btn danger" id="coinConfirmNo">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast-container" id="toastContainer"></div>
 
-<script>
-'use strict';
-
-const SK_DATA='pyc_data2',SK_SETTINGS='pyc_settings2',SK_USER='pyc_user2',SK_XP='pyc_xp2',SK_BACKUP='pyc_backup2';
-const GAME_ROUNDS=10,GAME_HITS=8,GRACE_MS=5*60*1000;
-const STATUSES=['Present','Holiday','Sick Leave','Vacation','Absent'];
-
-let appData={},settings={start:'08:00',end:'17:00',lunchMins:60,hourlyRate:0};
-let userName='',currentYM='',graceTimers={},rowGraceIntervals={};
-let xpData={xp:0,level:0,totalXP:0};
-
-// ── RANKS ──────────────────────────────────────────────────────────────────────
-const RANKS=[
-  {name:'Rookie',    icon:'🥉',xpReq:0  },
-  {name:'Clocker',   icon:'⚙️',xpReq:100},
-  {name:'Grinder',   icon:'🔧',xpReq:250},
-  {name:'Warrior',   icon:'⚔️',xpReq:500},
-  {name:'Champion',  icon:'🏆',xpReq:900},
-  {name:'Legend',    icon:'💎',xpReq:1500},
-  {name:'Immortal',  icon:'👑',xpReq:2500},
-];
-function getRank(totalXP){ let r=RANKS[0]; for(const rk of RANKS) if(totalXP>=rk.xpReq)r=rk; return r; }
-function getNextRank(totalXP){ for(const rk of RANKS) if(totalXP<rk.xpReq)return rk; return null; }
-
-// ── ACHIEVEMENTS ───────────────────────────────────────────────────────────────
-const ACH=[
-  {id:'first_punch',  icon:'👊', label:'First Blood',    desc:'First punch ever',           check:d=>d.totalXP>=10},
-  {id:'streak3',      icon:'🔥', label:'On Fire',        desc:'3-day streak',               check:d=>computeStreak()>=3},
-  {id:'streak7',      icon:'🌶️', label:'Week Warrior',   desc:'7-day streak',               check:d=>computeStreak()>=7},
-  {id:'streak21',     icon:'💪', label:'Iron Habit',     desc:'21-day streak',              check:d=>computeStreak()>=21},
-  {id:'ot_first',     icon:'⏱️', label:'Overtime Hero',  desc:'First overtime day',         check:d=>d._firstOT},
-  {id:'full_month',   icon:'📅', label:'Full House',     desc:'All days punched in a month',check:d=>d._fullMonth},
-  {id:'rank5',        icon:'🏆', label:'Champion!',      desc:'Reach Champion rank',        check:d=>d.totalXP>=900},
-  {id:'legend',       icon:'💎', label:'Living Legend',  desc:'Reach Legend rank',          check:d=>d.totalXP>=1500},
-  {id:'win5',         icon:'🥊', label:'Brawler',        desc:'Win 5 Whack games',          check:d=>d._winsTotal>=5},
-];
-
-function loadAchievements(){
-  try{return JSON.parse(localStorage.getItem('pyc_ach')||'{}')}catch{return {}}
-}
-function saveAchievements(a){localStorage.setItem('pyc_ach',JSON.stringify(a))}
-
-function checkAchievements(){
-  const ach=loadAchievements();
-  const meta=buildAchMeta();
-  let newUnlock=false;
-  for(const a of ACH){
-    if(!ach[a.id]&&a.check(meta)){
-      ach[a.id]=Date.now();
-      newUnlock=true;
-      toast(`🏅 Achievement: ${a.label}!`);
-      gainXP(50,`Achievement: ${a.label}`);
-    }
-  }
-  if(newUnlock)saveAchievements(ach);
-  renderAchievements(ach);
-}
-
-function buildAchMeta(){
-  const m={totalXP:xpData.totalXP,_firstOT:false,_fullMonth:false,_winsTotal:parseInt(localStorage.getItem('pyc_wins')||'0')};
-  const[y,mo]=currentYM.split('-').map(Number);
-  const working=getWorkingDays(y,mo);
-  let allPunched=working.length>0,hasOT=false;
-  for(const d of working){
-    const day=appData[currentYM]?.[d];
-    if(!day||(!day.amArrival&&!day.pmArrival)) allPunched=false;
-    if(day){const{netMins}=computeDaily(day);if(overtime(netMins,officialMins(day))>0)hasOT=true;}
-  }
-  m._fullMonth=allPunched;
-  m._firstOT=hasOT;
-  return m;
-}
-
-function renderAchievements(ach){
-  const strip=document.getElementById('achStrip');
-  strip.innerHTML=ACH.map(a=>`<span class="ach-chip ${ach[a.id]?'unlocked':''}" title="${a.desc}${ach[a.id]?' ✓':''}">
-    <span class="ach-icon">${a.icon}</span>${a.label}
-  </span>`).join('');
-}
-
-// ── XP SYSTEM ──────────────────────────────────────────────────────────────────
-function loadXP(){try{const s=localStorage.getItem(SK_XP);if(s)xpData=JSON.parse(s);}catch{}}
-function saveXP(){localStorage.setItem(SK_XP,JSON.stringify(xpData))}
-
-function gainXP(amount,reason){
-  xpData.totalXP=(xpData.totalXP||0)+amount;
-  saveXP(); updateRankUI();
-  showXPPopup(amount,reason);
-}
-
-function updateRankUI(){
-  const rank=getRank(xpData.totalXP);
-  const next=getNextRank(xpData.totalXP);
-  document.getElementById('rankIcon').textContent=rank.icon;
-  document.getElementById('rankName').textContent=rank.name;
-  if(next){
-    const prev=RANKS[RANKS.indexOf(next)-1];
-    const needed=next.xpReq-prev.xpReq;
-    const have=xpData.totalXP-prev.xpReq;
-    const pct=Math.min(100,Math.round(have/needed*100));
-    document.getElementById('xpFill').style.width=pct+'%';
-    document.getElementById('xpVal').textContent=`${xpData.totalXP} / ${next.xpReq}`;
-  } else {
-    document.getElementById('xpFill').style.width='100%';
-    document.getElementById('xpVal').textContent=`${xpData.totalXP} XP MAX`;
-  }
-}
-
-function showXPPopup(amount){
-  const el=document.createElement('div');
-  el.className='xp-popup';
-  el.textContent=`+${amount} XP`;
-  el.style.left=Math.random()*60+20+'vw';
-  el.style.top='30vh';
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(),1300);
-}
-
-// ── HELPERS ───────────────────────────────────────────────────────────────────
-const toMins=t=>{if(!t||!t.includes(':'))return null;const[h,m]=t.split(':').map(Number);return h*60+m};
-const fmtHM=m=>{m=Math.max(0,m);return `${Math.floor(m/60)}h ${m%60}m`};
-const padT=n=>String(n).padStart(2,'0');
-const nowHHMM=()=>{const n=new Date();return `${padT(n.getHours())}:${padT(n.getMinutes())}`};
-const getDaysInMonth=(y,m)=>new Date(y,m,0).getDate();
-const getWeekday=(y,m,d)=>new Date(y,m-1,d).getDay();
-const getWorkingDays=(y,m)=>{const d=[];for(let i=1;i<=getDaysInMonth(y,m);i++){const w=getWeekday(y,m,i);if(w!==0&&w!==6)d.push(i);}return d};
-const isUnlocked=day=>day&&day.unlocked&&day.unlockedUntil>Date.now();
-
-// ── COMPUTE ───────────────────────────────────────────────────────────────────
-function computeDaily(day){
-  const aIn=toMins(day.amArrival),aOut=toMins(day.amDepart);
-  const pIn=toMins(day.pmArrival),pOut=toMins(day.pmDepart);
-  const hasAM=aIn!==null&&aOut!==null&&aOut>aIn;
-  const hasPM=pIn!==null&&pOut!==null&&pOut>pIn;
-  const raw=(hasAM?aOut-aIn:0)+(hasPM?pOut-pIn:0);
-  let ded=0;
-  if((hasAM&&!hasPM)||(!hasAM&&hasPM))ded=Math.min(day.customLunchMins??settings.lunchMins,raw);
-  return{netMins:Math.max(0,raw-ded)};
-}
-function officialMins(day){return Math.max(0,toMins(settings.end)-toMins(settings.start)-(day.customLunchMins??settings.lunchMins))}
-const overtime=(n,o)=>Math.max(0,n-o);
-
-// ── STORAGE ───────────────────────────────────────────────────────────────────
-const saveData=()=>localStorage.setItem(SK_DATA,JSON.stringify(appData));
-const saveSettings=()=>localStorage.setItem(SK_SETTINGS,JSON.stringify(settings));
-function loadData(){try{const r=localStorage.getItem(SK_DATA);if(r)appData=JSON.parse(r);}catch{}}
-function loadSettings(){try{const r=localStorage.getItem(SK_SETTINGS);if(r)settings={...settings,...JSON.parse(r)};}catch{}}
-function loadUserName(){
-  userName=localStorage.getItem(SK_USER)||'';
-  if(!userName){userName=prompt('🥊 Your name, fighter?','Fighter')||'Fighter';localStorage.setItem(SK_USER,userName);}
-}
-
-// ── MONTH INIT ────────────────────────────────────────────────────────────────
-function initMonth(ym){
-  if(!appData[ym])appData[ym]={};
-  const[y,m]=ym.split('-').map(Number);
-  const working=getWorkingDays(y,m);
-  for(const d of working){
-    if(!appData[ym][d]){
-      appData[ym][d]={amArrival:'',amDepart:'',pmArrival:'',pmDepart:'',status:'Present',customLunchMins:null,unlocked:false,unlockedUntil:0,provedFlags:{},notes:''};
-    } else {
-      const day=appData[ym][d];
-      if(day.unlocked===undefined)day.unlocked=false;
-      if(day.unlockedUntil===undefined)day.unlockedUntil=0;
-      if(!day.provedFlags)day.provedFlags={};
-      if(!day.status)day.status='Present';
-      if(day.notes===undefined)day.notes='';
-    }
-  }
-  for(const d in appData[ym])if(!working.includes(+d))delete appData[ym][+d];
-  saveData();
-}
-
-// ── UNLOCK ────────────────────────────────────────────────────────────────────
-function unlockDay(ym,d){
-  const until=Date.now()+GRACE_MS;
-  if(!appData[ym])appData[ym]={};
-  if(!appData[ym][d])appData[ym][d]={status:'Present',unlocked:false,unlockedUntil:0,provedFlags:{},notes:''};
-  appData[ym][d].unlocked=true;
-  appData[ym][d].unlockedUntil=until;
-  saveData();
-  const key=`${ym}|${d}`;
-  if(graceTimers[key])clearTimeout(graceTimers[key]);
-  graceTimers[key]=setTimeout(()=>{
-    if(appData[ym]?.[d]?.unlockedUntil===until){
-      appData[ym][d].unlocked=false;appData[ym][d].unlockedUntil=0;
-      saveData();renderTable();updateTodayStatus();toast(`🔒 Day ${d} auto-locked`);
-    }
-  },GRACE_MS);
-  renderTable();updateTodayStatus();
-}
-
-// ── STREAK ────────────────────────────────────────────────────────────────────
-function computeStreak(){
-  let streak=0,limit=0;
-  const cursor=new Date();cursor.setHours(0,0,0,0);
-  while(limit++<365){
-    const wd=cursor.getDay();
-    if(wd===0||wd===6){cursor.setDate(cursor.getDate()-1);continue;}
-    const ym=`${cursor.getFullYear()}-${padT(cursor.getMonth()+1)}`;
-    const day=appData[ym]?.[cursor.getDate()];
-    if(!day)break;
-    const logged=day.amArrival||day.amDepart||day.pmArrival||day.pmDepart||day.notes||['Sick Leave','Vacation','Holiday','Absent'].includes(day.status);
-    if(!logged)break;
-    streak++;cursor.setDate(cursor.getDate()-1);
-  }
-  return streak;
-}
-function updateStreak(){
-  const s=computeStreak();
-  document.getElementById('streakNum').textContent=s;
-  const badge=document.getElementById('streakBadge');
-  badge.classList.toggle('hot',s>=3);
-  badge.title=`${s} consecutive working days logged${s>=3?' 🔥 Keep it up!':''}`;
-}
-
-// ── LIVE CLOCK ────────────────────────────────────────────────────────────────
-function startLiveClock(){
-  const el=document.getElementById('liveClock');
-  function tick(){const n=new Date();el.innerHTML=`${padT(n.getHours())}:${padT(n.getMinutes())}<span class="sec">:${padT(n.getSeconds())}</span>`;}
-  tick();setInterval(tick,1000);
-}
-
-// ── GRACE COUNTDOWN UI ────────────────────────────────────────────────────────
-function startGraceCountdownUI(){
-  setInterval(()=>{
-    const now=new Date();
-    const ym=`${now.getFullYear()}-${padT(now.getMonth()+1)}`;
-    const day=appData[ym]?.[now.getDate()];
-    const el=document.getElementById('graceCountdown');
-    if(day&&isUnlocked(day)){
-      const rem=Math.max(0,day.unlockedUntil-Date.now());
-      el.textContent=`🔓 Unlocked · ${Math.floor(rem/60000)}:${padT(Math.floor((rem%60000)/1000))} left`;
-    } else el.textContent='';
-  },1000);
-}
-
-function startRowGraceCountdowns(){
-  Object.values(rowGraceIntervals).forEach(clearInterval);
-  rowGraceIntervals={};
-  document.querySelectorAll('tbody tr[data-day]').forEach(row=>{
-    const d=parseInt(row.dataset.day);
-    const day=appData[currentYM]?.[d];
-    const el=row.querySelector('.row-grace');
-    if(!el||!day||!isUnlocked(day)){if(el)el.textContent='';return;}
-    const iv=setInterval(()=>{
-      if(!isUnlocked(day)){el.textContent='';clearInterval(iv);return;}
-      const rem=Math.max(0,day.unlockedUntil-Date.now());
-      el.textContent=`⏱ ${Math.floor(rem/60000)}:${padT(Math.floor((rem%60000)/1000))}`;
-    },1000);
-    rowGraceIntervals[d]=iv;
-    const rem0=Math.max(0,day.unlockedUntil-Date.now());
-    el.textContent=`⏱ ${Math.floor(rem0/60000)}:${padT(Math.floor((rem0%60000)/1000))}`;
-  });
-}
-
-// ── INCOMPLETE PUNCH ALERT ────────────────────────────────────────────────────
-function checkIncompletePunches(){
-  const now=new Date();
-  const ym=`${now.getFullYear()}-${padT(now.getMonth()+1)}`;
-  const day=appData[ym]?.[now.getDate()];
-  const el=document.getElementById('punchAlert');
-  if(!day){el.classList.remove('visible');return;}
-  const h=now.getHours(),issues=[];
-  if(day.amArrival&&!day.amDepart&&h>=12)issues.push('AM IN recorded but no AM OUT');
-  if(!day.amArrival&&!day.pmArrival&&h>=9&&day.status==='Present')issues.push('No punch recorded yet');
-  if(day.pmArrival&&!day.pmDepart&&h>=17)issues.push('PM IN recorded but no PM OUT');
-  if(issues.length){el.innerHTML=`⚠️ <strong>Punch gap:</strong> ${issues.join(' · ')}`;el.classList.add('visible');}
-  else el.classList.remove('visible');
-}
-
-// ── WHACK-A-CLOCK GAME (enhanced w/ combo) ────────────────────────────────────
-function startWhackGame(onWin,onLose){
-  const overlay=document.createElement('div');
-  overlay.className='modal-overlay';
-  overlay.innerHTML=`<div class="modal-card">
-    <h2>⏰ WHACK-A-CLOCK</h2>
-    <p>Hit the clock! Need <strong>${GAME_HITS}</strong> hits in <strong>${GAME_ROUNDS}</strong> rounds.</p>
-    <div class="game-meta"><span class="score">Hits: <span id="wScore">0</span>/${GAME_HITS}</span><span class="round">Round: <span id="wRound">0</span>/${GAME_ROUNDS}</span></div>
-    <div class="progress-bar"><div class="progress-bar-fill" id="wProgress" style="width:0%"></div></div>
-    <div class="combo-display" id="comboDisplay"></div>
-    <div class="whack-grid">${Array(9).fill('<div class="mole-cell">🕳️</div>').join('')}</div>
-    <button class="btn danger" id="wAbort" style="margin-top:.5rem">❌ Give up</button>
-  </div>`;
-  document.body.appendChild(overlay);
-  const cells=overlay.querySelectorAll('.mole-cell');
-  const scoreEl=overlay.querySelector('#wScore'),roundEl=overlay.querySelector('#wRound'),progEl=overlay.querySelector('#wProgress'),comboEl=overlay.querySelector('#comboDisplay');
-  let round=0,hits=0,combo=0,active=true,timeout=null;
-  function end(win){
-    if(!active)return;active=false;
-    if(timeout)clearTimeout(timeout);
-    overlay.remove();
-    if(win){
-      const wins=(parseInt(localStorage.getItem('pyc_wins')||'0'))+1;
-      localStorage.setItem('pyc_wins',wins);
-    }
-    (win?onWin:onLose)();
-  }
-  function showMole(){
-    if(!active)return;
-    cells.forEach(c=>{c.className='mole-cell';c.textContent='🕳️';});
-    const cell=cells[Math.floor(Math.random()*9)];
-    cell.classList.add('active');cell.textContent='⏰🧤';
-    function onHit(){
-      if(!active||!cell.classList.contains('active'))return;
-      cell.classList.replace('active','hit');cell.textContent='💥';
-      hits++;combo++;
-      scoreEl.textContent=hits;
-      progEl.style.width=`${(hits/GAME_HITS)*100}%`;
-      comboEl.textContent=combo>=3?`🔥 ${combo}x COMBO!`:'';
-      clearTimeout(timeout);
-      if(hits>=GAME_HITS)end(true);
-      else setTimeout(nextRound,250);
-    }
-    cell.addEventListener('click',onHit,{once:true});
-    timeout=setTimeout(()=>{
-      if(active&&cell.classList.contains('active')){
-        cell.className='mole-cell';cell.textContent='😤';
-        combo=0;comboEl.textContent='';
-        setTimeout(()=>{if(active){cell.textContent='🕳️';nextRound();}},200);
-      }
-    },800);
-  }
-  function nextRound(){round++;roundEl.textContent=round;if(round>GAME_ROUNDS)end(hits>=GAME_HITS);else showMole();}
-  overlay.querySelector('#wAbort').onclick=()=>end(false);
-  nextRound();
-}
-
-// ── TODAY STATUS ──────────────────────────────────────────────────────────────
-function updateTodayStatus(){
-  const now=new Date();
-  const ym=`${now.getFullYear()}-${padT(now.getMonth()+1)}`;
-  const day=appData[ym]?.[now.getDate()];
-  document.getElementById('todayDate').textContent=now.toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'long',day:'numeric'});
-  if(!day){document.getElementById('todayStatus').textContent='📅 Not a working day';return;}
-  const labels={amArrival:'AM IN',amDepart:'AM OUT',pmArrival:'PM IN',pmDepart:'PM OUT'};
-  const parts=['amArrival','amDepart','pmArrival','pmDepart'].filter(f=>day[f]).map(f=>`${labels[f]}: ${day[f]}`);
-  document.getElementById('todayStatus').textContent=(parts.length?parts.join(' · '):'⏳ No punches yet')+(isUnlocked(day)?' 🔓':' 🔒');
-  checkIncompletePunches();
-}
-
-function punchToday(field){
-  const now=new Date();
-  const ym=`${now.getFullYear()}-${padT(now.getMonth()+1)}`;
-  const d=now.getDate();
-  if(!appData[ym])initMonth(ym);
-  const day=appData[ym][d];
-  if(!day){toast('Today is not a working day');return;}
-  const btn=document.querySelector(`.punch-btn[data-punch="${field}"]`);
-  if(btn){btn.classList.add('flash');setTimeout(()=>btn.classList.remove('flash'),450);}
-  function doRecord(){
-    const t=nowHHMM();
-    appData[ym][d][field]=t;
-    if(!appData[ym][d].provedFlags)appData[ym][d].provedFlags={};
-    appData[ym][d].provedFlags[field]=true;
-    saveData();
-    if(currentYM===ym)renderTable();
-    updateTodayStatus();updateStreak();
-    const labels={amArrival:'AM IN',amDepart:'AM OUT',pmArrival:'PM IN',pmDepart:'PM OUT'};
-    toast(`✅ ${labels[field]||field} punched at ${t}`);
-    gainXP(10,`Punch: ${labels[field]}`);
-    checkAchievements();
-    // Bonus XP for full day
-    const dd=appData[ym][d];
-    if(dd.amArrival&&dd.amDepart&&dd.pmArrival&&dd.pmDepart){gainXP(20,'Full day complete!');}
-  }
-  if(isUnlocked(day)){doRecord();return;}
-  startWhackGame(()=>{unlockDay(ym,d);gainXP(25,'Won Whack-a-Clock!');checkAchievements();setTimeout(doRecord,100);},()=>toast('💀 Lost! Cannot punch.'));
-}
-
-// ── RENDER TABLE ──────────────────────────────────────────────────────────────
-function renderTable(){
-  const[y,m]=currentYM.split('-').map(Number);
-  const today=new Date();
-  const todayD=(y===today.getFullYear()&&m===today.getMonth()+1)?today.getDate():-1;
-  const working=getWorkingDays(y,m);
-  const DAY_NAMES=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-  let html=`<table><thead><tr>
-    <th>Day</th><th>AM IN</th><th>AM OUT</th><th>PM IN</th><th>PM OUT</th>
-    <th>Total</th><th>OT</th><th>Status</th><th>Lunch</th><th>📝 Notes</th><th>🥊</th>
-  </tr></thead><tbody>`;
-
-  for(const d of working){
-    const day=appData[currentYM]?.[d]||{amArrival:'',amDepart:'',pmArrival:'',pmDepart:'',status:'Present',customLunchMins:null,unlocked:false,unlockedUntil:0,provedFlags:{},notes:''};
-    const unlocked=isUnlocked(day),dis=unlocked?'':'disabled';
-    const{netMins}=computeDaily(day);
-    const official=officialMins(day);
-    const isLeave=['Absent','Sick Leave','Vacation'].includes(day.status);
-    const ot=isLeave?0:overtime(netMins,official);
-    const isToday=d===todayD;
-    const hasAMIn=!!day.amArrival,hasAMOut=!!day.amDepart,hasPMIn=!!day.pmArrival,hasPMOut=!!day.pmDepart;
-    const incomplete=day.status==='Present'&&((hasAMIn&&!hasAMOut)||(hasPMIn&&!hasPMOut));
-    const rowCls=isToday?'today-row':incomplete?'warn-row':'';
-    const dayName=DAY_NAMES[getWeekday(y,m,d)];
-
-    html+=`<tr class="${rowCls}" data-day="${d}">
-      <td><span class="day-num">${d}</span><br><span style="font-size:.58rem;color:var(--muted)">${dayName}</span>${isToday?' <span class="day-star">★</span>':''}</td>
-      <td><input type="time" class="time-input${hasAMIn&&!hasAMOut?' incomplete':''}" data-field="amArrival" value="${day.amArrival||''}" ${dis}></td>
-      <td><input type="time" class="time-input${!hasAMIn&&hasAMOut?' incomplete':''}" data-field="amDepart"  value="${day.amDepart||''}"  ${dis}></td>
-      <td><input type="time" class="time-input${hasPMIn&&!hasPMOut?' incomplete':''}" data-field="pmArrival" value="${day.pmArrival||''}" ${dis}></td>
-      <td><input type="time" class="time-input${!hasPMIn&&hasPMOut?' incomplete':''}" data-field="pmDepart"  value="${day.pmDepart||''}"  ${dis}></td>
-      <td class="total-cell">${netMins>0?fmtHM(netMins):'—'}</td>
-      <td class="ot-cell ${ot>0?'ot-pos':'ot-zero'}">${ot>0?'+'+fmtHM(ot):'—'}</td>
-      <td><select class="status-select" ${dis}>${STATUSES.map(s=>`<option${day.status===s?' selected':''}>${s}</option>`).join('')}</select></td>
-      <td><input type="number" class="lunch-input" placeholder="auto" value="${day.customLunchMins??''}" ${dis} min="0" step="5"></td>
-      <td><input type="text" class="notes-input" placeholder="WFH, mtg…" value="${(day.notes||'').replace(/"/g,'&quot;')}" ${dis} maxlength="60"></td>
-      <td>
-        <button class="dispute-btn" data-day="${d}">🥊</button>
-        <span class="lock-icon">${unlocked?'🔓':'🔒'}</span>
-        <span class="row-grace"></span>
-      </td>
-    </tr>`;
-  }
-  html+='</tbody></table>';
-  document.getElementById('dtrTableContainer').innerHTML=html;
-  attachEvents();updateSummary(y,m,working);updateStreak();startRowGraceCountdowns();checkAchievements();
-}
-
-function attachEvents(){
-  document.querySelectorAll('.time-input').forEach(el=>el.addEventListener('change',onTimeChange));
-  document.querySelectorAll('.status-select').forEach(el=>el.addEventListener('change',onStatusChange));
-  document.querySelectorAll('.lunch-input').forEach(el=>el.addEventListener('change',onLunchChange));
-  document.querySelectorAll('.notes-input').forEach(el=>el.addEventListener('change',onNotesChange));
-  document.querySelectorAll('.dispute-btn').forEach(el=>el.addEventListener('click',onDispute));
-}
-
-function getDayFromRow(row){const d=parseInt(row.dataset.day);return{d,day:appData[currentYM]?.[d]};}
-
-function onTimeChange(e){
-  const{d,day}=getDayFromRow(e.target.closest('tr'));
-  if(!day)return;
-  if(!isUnlocked(day)){toast('🔒 Locked! Win dispute first.');e.target.value=day[e.target.dataset.field]||'';return;}
-  day[e.target.dataset.field]=e.target.value;saveData();renderTable();updateTodayStatus();toast('✅ Time updated');
-  gainXP(5,'Time edited');
-}
-function onStatusChange(e){
-  const{d,day}=getDayFromRow(e.target.closest('tr'));
-  if(!day)return;
-  if(!isUnlocked(day)){toast('🔒 Unlock first.');e.target.value=day.status;return;}
-  day.status=e.target.value;saveData();renderTable();updateTodayStatus();toast(`📌 Status → ${day.status}`);
-}
-function onLunchChange(e){
-  const{d,day}=getDayFromRow(e.target.closest('tr'));
-  if(!day)return;
-  if(!isUnlocked(day)){toast('🔒 Unlock first.');e.target.value=day.customLunchMins??'';return;}
-  day.customLunchMins=e.target.value===''?null:parseInt(e.target.value);
-  saveData();renderTable();updateTodayStatus();
-  toast(day.customLunchMins!==null?`🍱 Lunch → ${day.customLunchMins} min`:'🍱 Lunch reset');
-}
-function onNotesChange(e){
-  const{d,day}=getDayFromRow(e.target.closest('tr'));
-  if(!day)return;
-  if(!isUnlocked(day)){toast('🔒 Unlock first to add notes.');e.target.value=day.notes||'';return;}
-  day.notes=e.target.value.trim();saveData();updateStreak();toast('📝 Note saved');gainXP(2,'Note added');
-}
-function onDispute(e){
-  const d=parseInt(e.currentTarget.dataset.day);
-  const day=appData[currentYM]?.[d];
-  if(!day)return;
-  if(isUnlocked(day)){toast(`Day ${d} already unlocked 🔓`);return;}
-  startWhackGame(()=>{unlockDay(currentYM,d);gainXP(25,'Won Whack-a-Clock!');checkAchievements();toast(`🥊 Victory! Day ${d} unlocked for 5 min`);},()=>toast(`💀 Lost! Day ${d} stays locked.`));
-}
-
-// ── SUMMARY ───────────────────────────────────────────────────────────────────
-function updateSummary(y,m,working){
-  let regOT=0,holOT=0,totalWorked=0,daysPresent=0,daysAbsent=0,daysLeave=0,daysPunched=0;
-  for(const d of working){
-    const day=appData[currentYM]?.[d];if(!day)continue;
-    if(['Sick Leave','Vacation'].includes(day.status)){daysLeave++;continue;}
-    if(day.status==='Absent'){daysAbsent++;continue;}
-    const{netMins}=computeDaily(day);const official=officialMins(day);const ot=overtime(netMins,official);
-    totalWorked+=netMins;
-    if(day.status==='Present'){daysPresent++;regOT+=ot;if(day.amArrival||day.pmArrival)daysPunched++;}
-    if(day.status==='Holiday'){holOT+=ot;daysPresent++;if(day.amArrival||day.pmArrival)daysPunched++;}
-  }
-  document.getElementById('regularOT').textContent=fmtHM(regOT);
-  document.getElementById('holidayOT').textContent=fmtHM(holOT);
-  document.getElementById('totalOT').textContent=fmtHM(regOT+holOT);
-  document.getElementById('daysWorked').textContent=daysPresent;
-  document.getElementById('totalHours').textContent=fmtHM(totalWorked);
-  document.getElementById('daysAbsent').textContent=daysAbsent;
-  document.getElementById('daysLeave').textContent=daysLeave;
-  const workingTotal=working.length-(daysAbsent+daysLeave);
-  const pct=workingTotal>0?Math.round(daysPunched/workingTotal*100):0;
-  document.getElementById('completionRate').textContent=`${pct}%`;
-  const rate=settings.hourlyRate||0;
-  const payCard=document.getElementById('otPayCard');
-  if(rate>0){
-    const pay=((regOT+holOT)/60*rate*1.25).toFixed(2);
-    document.getElementById('otPay').textContent=`₱${Number(pay).toLocaleString()}`;
-    payCard.style.display='';
-  } else payCard.style.display='none';
-}
-
-// ── SETTINGS ──────────────────────────────────────────────────────────────────
-function applySettings(){
-  settings.start=document.getElementById('officialStart').value;
-  settings.end=document.getElementById('officialEnd').value;
-  settings.lunchMins=parseInt(document.getElementById('lunchMinutes').value)||0;
-  settings.hourlyRate=parseFloat(document.getElementById('hourlyRate').value)||0;
-  saveSettings();renderTable();toast('⚙️ Settings applied');
-}
-function loadSettingsIntoUI(){
-  document.getElementById('officialStart').value=settings.start;
-  document.getElementById('officialEnd').value=settings.end;
-  document.getElementById('lunchMinutes').value=settings.lunchMins;
-  document.getElementById('hourlyRate').value=settings.hourlyRate||0;
-}
-
-// ── EXPORT / IMPORT / RESET ───────────────────────────────────────────────────
-function exportData(){
-  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([JSON.stringify(appData,null,2)],{type:'application/json'})),download:`punch_${currentYM}.punch`});
-  a.click();URL.revokeObjectURL(a.href);toast('💾 Exported');
-}
-function exportCSV(){
-  const[y,m]=currentYM.split('-').map(Number);
-  const rows=[['Day','AM IN','AM OUT','PM IN','PM OUT','Total','OT','Status','Lunch','Notes']];
-  for(const d of getWorkingDays(y,m)){
-    const day=appData[currentYM]?.[d];if(!day)continue;
-    const{netMins}=computeDaily(day);const ot=overtime(netMins,officialMins(day));
-    rows.push([d,day.amArrival||'',day.amDepart||'',day.pmArrival||'',day.pmDepart||'',netMins>0?fmtHM(netMins):'',ot>0?fmtHM(ot):'',day.status,day.customLunchMins??'',`"${(day.notes||'').replace(/"/g,'""')}"`]);
-  }
-  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'})),download:`punch_${currentYM}.csv`});
-  a.click();URL.revokeObjectURL(a.href);toast('📊 CSV exported');
-}
-function importData(file){
-  const r=new FileReader();
-  r.onload=e=>{try{appData=JSON.parse(e.target.result);saveData();initMonth(currentYM);renderTable();toast('📂 Imported');}catch{toast('❌ Invalid file');}};
-  r.readAsText(file);
-}
-function resetMonth(){
-  if(!confirm(`Reset all data for ${currentYM}?`))return;
-  localStorage.setItem(SK_BACKUP,JSON.stringify(appData[currentYM]));
-  delete appData[currentYM];initMonth(currentYM);saveData();renderTable();toast(`🧨 ${currentYM} reset. Undo available.`);
-}
-function undoReset(){
-  const b=localStorage.getItem(SK_BACKUP);
-  if(!b){toast('No backup found.');return;}
-  appData[currentYM]=JSON.parse(b);saveData();renderTable();toast(`↩️ Undo done for ${currentYM}`);
-}
-
-// ── TOAST ─────────────────────────────────────────────────────────────────────
-function toast(msg){
-  const el=document.createElement('div');el.className='toast';el.textContent=msg;
-  document.getElementById('toastContainer').appendChild(el);
-  setTimeout(()=>el.remove(),3100);
-}
-
-// ── KEYBOARD SHORTCUTS ────────────────────────────────────────────────────────
-function initKeyboardShortcuts(){
-  const map={'1':'amArrival','2':'amDepart','3':'pmArrival','4':'pmDepart'};
-  document.addEventListener('keydown',e=>{
-    if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
-    if(map[e.key]){e.preventDefault();punchToday(map[e.key]);}
-  });
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-function init(){
-  loadData();loadSettings();loadUserName();loadXP();
-  const now=new Date();
-  currentYM=`${now.getFullYear()}-${padT(now.getMonth()+1)}`;
-  document.getElementById('nameTag').textContent=`👤 ${userName}`;
-  document.getElementById('tagline').innerHTML=`You think you clocked in, <strong>${userName}</strong>? We know you didn't. Let's fight about it.`;
-  document.getElementById('monthPicker').value=currentYM;
-
-  document.getElementById('nameTag').addEventListener('click',()=>{
-    const n=prompt('Change your name:',userName);
-    if(n&&n.trim()){
-      userName=n.trim();localStorage.setItem(SK_USER,userName);
-      document.getElementById('nameTag').textContent=`👤 ${userName}`;
-      document.getElementById('tagline').innerHTML=`You think you clocked in, <strong>${userName}</strong>? We know you didn't. Let's fight about it.`;
-    }
-  });
-
-  updateRankUI();
-  loadSettingsIntoUI();
-  initMonth(currentYM);
-  renderTable();
-  updateTodayStatus();
-  startLiveClock();
-  startGraceCountdownUI();
-  initKeyboardShortcuts();
-  checkAchievements();
-
-  setInterval(()=>{updateTodayStatus();checkIncompletePunches();},60000);
-
-  document.getElementById('monthPicker').addEventListener('change',e=>{currentYM=e.target.value;initMonth(currentYM);renderTable();});
-  document.getElementById('applySettingsBtn').addEventListener('click',applySettings);
-  document.getElementById('exportBtn').addEventListener('click',exportData);
-  document.getElementById('exportCsvBtn').addEventListener('click',exportCSV);
-  document.getElementById('importBtn').addEventListener('click',()=>{
-    const inp=Object.assign(document.createElement('input'),{type:'file',accept:'.punch,.json'});
-    inp.onchange=e=>{if(e.target.files[0])importData(e.target.files[0]);};inp.click();
-  });
-  document.getElementById('printBtn').addEventListener('click',()=>window.print());
-  document.getElementById('resetMonthBtn').addEventListener('click',resetMonth);
-  document.getElementById('undoResetBtn').addEventListener('click',undoReset);
-  document.querySelectorAll('.punch-btn').forEach(btn=>btn.addEventListener('click',()=>punchToday(btn.dataset.punch)));
-}
-
-init();
-
-// ── SERVICE WORKER + PWA INSTALL ──────────────────────────────────────────────
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('./sw.js').catch(()=>{});
-}
-
-let deferredPrompt=null;
-const installBanner=document.getElementById('installBanner');
-const installBtn=document.getElementById('installBtn');
-const installDismiss=document.getElementById('installDismiss');
-
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  if(!localStorage.getItem('pyc_pwa_dismissed')){
-    installBanner.classList.add('show');
-  }
-});
-
-installBtn.addEventListener('click',async()=>{
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  const{outcome}=await deferredPrompt.userChoice;
-  if(outcome==='accepted'){
-    toast('🎉 App installed! Find it on your home screen.');
-    installBanner.classList.remove('show');
-  }
-  deferredPrompt=null;
-});
-
-installDismiss.addEventListener('click',()=>{
-  installBanner.classList.remove('show');
-  localStorage.setItem('pyc_pwa_dismissed','1');
-});
-
-window.addEventListener('appinstalled',()=>{
-  installBanner.classList.remove('show');
-  deferredPrompt=null;
-  toast('✅ Punch Your Clock is installed!');
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
