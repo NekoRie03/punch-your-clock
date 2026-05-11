@@ -1,0 +1,26 @@
+{
+  "name": "Punch Your Clock",
+  "short_name": "PunchClock",
+  "description": "Personal time tracker with XP, achievements, and Whack-a-Clock.",
+  "start_url": "./punch-your-clock.html",
+  "display": "standalone",
+  "background_color": "#080709",
+  "theme_color": "#f5c842",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "en"
+}
