@@ -1,178 +1,97 @@
 # 🥊 Punch Your Clock
 
-> *"You think you clocked in? We know you didn't. Let's fight about it."*
+### A personal DTR that doesn’t trust you. A time tracker that fights back.
 
-**Punch Your Clock** is the only time tracker that makes you literally fight for every second you claim. It's part DTR, part whack-a-mole arena, part RPG progression, and all brutal honesty about your attendance.
-
----
-
-## 🌐 Live Demo
-
-Smash the clock for real at: **[nekorie03.github.io/punch-your-clock](https://nekorie03.github.io/punch-your-clock/)**
+[![Deploy](https://img.shields.io/badge/live-demo-brightgreen?logo=github)](https://nekorie03.github.io/punch-your-clock/)
+[![Made with React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev)
+[![PWA Ready](https://img.shields.io/badge/PWA-ready-blueviolet?logo=pwa)](https://nekorie03.github.io/punch-the-clock)
+[![License: WTFPL](https://img.shields.io/badge/license-WTFPL-brightgreen)](http://www.wtfpl.net/)
 
 ---
 
-## 🚀 Why This Exists
+## 📖 What Is This?
 
-Because normal timesheets are boring. And because if you really want to edit that time log from last Tuesday, you should have to prove your reflexes first. This app turns the dull chore of daily time recording into a street fight where the clock hits back.
+Punch Your Clock is a fully client‑side, gamified **Daily Time Record** built for exactly one person: me.  
+It’s my daily attendance sheet turned into a dark‑mode RPG where every punch earns XP, unlocking statuses from **Rookie** to **Immortal**, and editing a past entry requires winning a mini‑game or spending hard‑earned coins.
 
----
+> *“You think you clocked in, Fighter? We know you didn't. Let's fight about it.”*
 
-## 🧠 Core Philosophy
-
-1. **Every edit must hurt a little.** If you forgot to punch out yesterday, you don't get to just type "17:00" and move on. You earn that edit by smashing a digital clock in a 3x3 grid.
-2. **You are what you punch.** Show up consistently and you'll climb the ranks from Rookie to Immortal. Slack off and the UI will mock you with a "🔥 0 day streak" badge.
-3. **Coins are life.** Counter Clocks are the currency of convenience. Spend them to skip the fight. But earning them? That's the real fight.
+No databases. No servers. No HR department. Just a browser, localStorage, and a deeply unnecessary amount of competitive spirit.
 
 ---
 
-## 🎮 Features That Shouldn't Exist
+## 🎮 Features
 
-### 🕹️ Whack‑a‑Clock Mini‑Game
-- A reflex‑testing mini‑game you must win to unlock any day's edit rights.
-- Difficulty slider from **Easy (mockingly slow)** to **Nightmare (don't touch if you value your sanity)**.
-- Win and you get a 5‑minute grace window to fix your logs. Lose and… well, try again, loser.
+### ⏱ Core Time Tracking
+- **Four punch buttons** – AM IN, AM OUT, PM IN, PM OUT – all with keyboard shortcuts (`1`‑`4`).
+- **Full month view** – shows every working day with totals, overtime, and status.
+- **Overtime calculation** – set your official hours and an hourly rate for estimated pay.
+- **Custom lunch times** and notes per day.
+- **Leave & holiday handling** – mark days as Sick Leave, Vacation, Holiday, or Absent.
 
-### 🪙 Counter Clock Currency
-- Earn coins by winning disputes (or the monthly challenge).
-- Spend **1 coin = 1 free edit, no game required**.
-- Anti‑abuse: lose 3 times in a row and your next win gives **0 coins**. Stop farming.
+### 🔐 Trust Issues System
+- **Every day starts locked.** You must prove you deserve to record your time.
+- **Whack‑a‑Clock** – a 3×3 grid mini‑game where you hit a clock mole enough times to unlock the day for 5 minutes.
+- **Counter Clock Coins** – win coins by beating the game. Spend one to unlock any day without fighting.
+- **Grace period** – unlocked days automatically re‑lock after 5 minutes. No slack.
 
-### 🏅 Achievements & Rank System
-- 9 achievements (First Blood, On Fire, Living Legend, etc.)
-- XP system with 7 ranks from Rookie to Immortal.
-- Animated XP and coin pop‑ups because dopamine matters.
+### 📈 Gamification & Progression
+- **XP system** – punch, complete a full day, win disputes, and unlock achievements to earn XP.
+- **7 ranks** – from Rookie (0 XP) to Immortal (2500+ XP), each with an emoji badge.
+- **9 achievements** – “First Blood”, “Week Warrior” (7‑day streak), “Iron Habit” (21‑day streak), “Full House” (all days punched in a month), etc.
+- **🔥 Streak counter** – consecutive working days logged. Glows red after 3 days like a warning flare.
 
-### 📱 Mobile Card View
-- On phones, the sprawling DTR table transforms into neat vertical cards.
-- All the same inputs and buttons, zero horizontal scroll pain.
+### 🪙 Counter Clock Economy
+- Earn coins by winning Whack‑a‑Clock disputes.
+- Spend coins to instantly unlock any day, no fight required.
+- **Monthly Challenge** – survive 20 rounds of Whack‑a‑Clock for a huge coin + XP reward (once per month).
+- After 3 straight losses, coins stop dropping until you win again.
 
-### 📊 Data Management
-- Export to JSON (`*.punch`) or CSV.
-- Import data from backup files.
-- Print a clean table (without the game junk).
-- Reset a month with an Undo safety net.
+### 📱 Progressive Web App
+- Install it on your phone or desktop for a native‑like experience.
+- Fully offline capable (service worker caches the app shell).
+- Responsive layout – table view on larger screens, card view on mobile.
 
-### 🥷 Keyboard Shortcuts
-- Keys **1‑4** punch today's AM IN, AM OUT, PM IN, PM OUT instantly. (No game unless locked.)
-
-### 🏆 Monthly Challenge
-- 20‑round endurance test.
-- Reward: **35 Counter Clocks** — enough to unlock every working day in a month.
-- Only redeemable once per month, so choose your month wisely.
-
-### 🔔 Live Clock & Punch Alerts
-- Big, obnoxious live clock ticking at the top.
-- Automatic warnings if you forgot to punch out and it's already late.
-
-### 📲 Progressive Web App
-- Install it on your phone home screen for full‑screen offline usage.
-- Service worker ensures it loads even when your office Wi‑Fi dies.
+### 📂 Data Portability
+- All data stored in `localStorage` – never leaves your device.
+- Export your month as **JSON** or **CSV**.
+- Import previously exported files.
+- Undo accidental resets via backup snapshots.
 
 ---
 
-## 🏗️ Tech Stack (aka the punching bag)
+## 🕹 How It Works (My Daily Ritual)
 
-- **Vanilla HTML, CSS, JavaScript** — no frameworks, no dependencies, just raw code.
-- **localStorage** for all data persistence (your data lives in your browser, so guard your phone with your life).
-- **CSS animations** for XP/coin pop‑ups and the mole whack effects.
-- **Google Fonts** (Bebas Neue & DM Mono) for that gritty, retro arcade look.
-
----
-
-## 📂 File Structure
-
-punch-your-clock/
-├── index.html # The ring
-├── style.css # The rope and canvas
-├── script.js # The referee & fighters
-├── manifest.json # PWA credentials
-├── sw.js # Service worker (offline punch)
-└── icon-192.png # The face of the gloves to punch your clock
+1. Open the site (or tap the PWA icon on my phone).  
+2. The app greets me by name – I set it to `"Fighter"` because yes, I’m that person.  
+3. Hit **AM IN** (or press `1`). If the day is locked → **Whack‑a‑Clock** appears.  
+4. Smack the clock mole *n* times before the rounds run out (difficulty adjustable).  
+5. Victory → day unlocks for 5 minutes → punch recorded. I get XP and maybe a coin.  
+6. Defeat → no punch, no coin, just a shame‑inducing toast message.  
+7. Repeat for AM OUT, PM IN, PM OUT. Completing all four grants bonus XP.  
+8. At the end of the month, stare at the DTR table, admire my streak, and export a backup because paranoia is a virtue.
 
 ---
 
-## 🛠️ How to Use (Step‑by‑Step Survival Guide)
+## 🧰 Tech Stack
 
-1. **Open `index.html`** in any modern browser. (Yes, it works offline after first load.)
-2. **Set your name** when prompted. Yes, even "Fighter" is acceptable.
-3. **Configure work hours, lunch, hourly rate** in the settings bar.
-4. **Punch the day** using the big buttons or keyword shortcuts. If locked, you'll fight.
-5. **To edit a past day**, click the 🥊 button (or 🪙 if you have coins). Win the game, get 5 minutes to fix your mistakes.
-6. **Keep your streak alive** if you want that sweet, sweet XP.
-7. **Beat the Monthly Challenge** to become the office clock‑warrior.
-
----
-
-## 🎛️ Configuration Options
-
-| Setting | Default | Description |
-|--------|---------|-------------|
-| Start / End time | 08:00–17:00 | Your official work hours. |
-| Lunch (min) | 60 | Minutes deducted from total hours. |
-| Hourly Rate (₱) | 0 | If set, OT pay estimate appears. |
-| Whack Difficulty | Normal | Easy (mocking), Normal, Hard, Nightmare. |
+| Layer          | Technology |
+|----------------|------------|
+| Frontend       | React 18 (loaded via UMD + Babel standalone – no build step) |
+| Styling        | CSS custom properties, dark theme, `DM Mono` & `Bebas Neue` fonts |
+| State          | React hooks + `useReducer` + localStorage |
+| Offline / PWA  | Service worker, web manifest, `beforeinstallprompt` event |
+| Hosting        | GitHub Pages |
+| Dependencies   | None beyond React and Babel CDN links (zero `node_modules`) |
 
 ---
 
-## 🏆 Achievement List (Unlock All 9, We Dare You)
+🙏 Credits
+Built by NekoRie03 because my attendance record needed a final boss.
+Special thanks to the mole emoji 🕳️ who carried the entire mini‑game.
 
-1. 👊 **First Blood** — Land your first punch ever.
-2. 🔥 **On Fire** — 3‑day streak.
-3. 🌶️ **Week Warrior** — 7‑day streak.
-4. 💪 **Iron Habit** — 21‑day streak.
-5. ⏱️ **Overtime Hero** — First overtime recorded.
-6. 📅 **Full House** — Every working day punched in a month.
-7. 🏆 **Champion!** — Reach Champion rank (900 XP).
-8. 💎 **Living Legend** — Reach Legend rank (1500 XP).
-9. 🥊 **Brawler** — Win 5 whack‑a‑clock games.
+📄 License
+WTFPL – Do What the F*ck You Want to Public License.
+See http://www.wtfpl.net/.
 
----
-
-## 🤣 Known "Features" (Definitely Not Bugs)
-
-- If you switch to Easy mode, the game mocks you after you win. This is intentional.
-- The coin confirmation popup can be skipped permanently. We call that "trust".
-- Losing 3 times in a row punishes you with 0 coin rewards. That's the game telling you to get good.
-- The live clock shows seconds. It's meant to induce mild anxiety.
-
----
-
-## 🧑‍💻 Credits
-
-- Original concept, development, and flavor text by [NekoRie03](https://github.com/NekoRie03).
-- Extended and maintained with laughter and occasional frustration.
-- Built while questioning why HR doesn't just trust us.
-
----
-
-## 📜 License
-
-MIT License – because even brawls need rules.
-
-Copyright (c) 2025 [NekoRie03] (https://github.com/NekoRie03)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
----
-
-## 🙏 Final Words
-
-**Punch Your Clock** was made because timesheets are dull and we all deserve a little chaos in our 9‑to‑5. It's not just a tool — it's a tiny rebellion with a leaderboard. So go forth, earn your Counter Clocks, and may your streak never break.
-
-*And remember: the only thing harder than the clock… is you.*
+Now, if you’ll excuse me, I have a streak to maintain. 🥊🔥
