@@ -8,7 +8,7 @@
 
 ## 🌐 Live Demo
 
-Smash the clock for real at: **[punch-your-clock.vercel.app](https://nekorie03.github.io/punch-your-clock/)**
+Smash the clock for real at: **[nekorie03.github.io/punch-your-clock](https://nekorie03.github.io/punch-your-clock/)**
 
 ---
 
